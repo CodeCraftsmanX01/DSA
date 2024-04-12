@@ -1,17 +1,19 @@
 package trees;
 
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Map;
 import java.util.Queue;
 import java.util.TreeMap;
-import java.util.*;
+
 import Arrays.ArrayList;
-import trees.topview.Pair;
+import trees.verticalordertraversal.Pair;
 
-public class bottomview {
-
+public class topview {
+	
 	static Node root;
 	static class Pair{
+		//hd is horizontal distance
 		int hd;
 		Node node;
 		public Pair(int hd,Node node) {
@@ -28,7 +30,9 @@ public static void top(Node root){
 	while(!q.isEmpty()) {
 		Pair curr=q.remove();
 		
-		map.put(curr.hd,curr.node.data);
+		if(!map.containsKey(curr.hd)) {
+			map.put(curr.hd,curr.node.data);	
+		}
 		
 		if(curr.node.left!=null) {
 			q.add(new Pair(curr.hd-1,curr.node.left));
@@ -41,6 +45,7 @@ public static void top(Node root){
 	for(Map.Entry<Integer,Integer>entry : map.entrySet()) {
 		System.out.print(entry.getValue()+"->");
 	}
+	
 }
 
 	public static void main(String[] args) {
@@ -50,10 +55,10 @@ public static void top(Node root){
         root.right = new Node(2);
         root.left.left = new Node(5);
         root.left.right = new Node(1);
-        root.left.right.left=new Node(4);
         root.right.left = new Node(8);
         root.right.right=new Node(3);
         
-        top(root);
+       top(root);
 	}
+
 }

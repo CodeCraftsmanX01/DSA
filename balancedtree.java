@@ -1,40 +1,39 @@
-package practicetree;
+package trees;
 
 public class balancedtree {
-static Node root;
-static Node left,right;
-
-public static boolean balanced(Node root) {
-	if(root==null) {
-		return true;
-	}
+	static Node root;
 	
-	boolean left=balanced(root.left);
-	boolean right=balanced(root.right);
+	//function to check that tree is balanced or not
+	public static boolean isBalanced(Node root) {
+        //base case
+        if(root==null){
+            return true;
+        }
+        
+        boolean left=isBalanced(root.left);
+        boolean right=isBalanced(root.right);
+        boolean difference=Math.abs(height(root.left)-height(root.right))<=1;
+        
+        if(left&& right&& difference){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
 	
-	boolean diff=Math.abs(height(root.left)-height(root.right))<=1;
-	
-	if(left&& right && diff) {
-		return true;
-	}
-	else {
-		return false;
-	}		
-}
-	
-	
-public static int height(Node root) {
-	if(root==null) {
-		return  0;
-	}
-	
-	int left=height(root.left);
-	int right=height(root.right);
-	
-	return Math.max(left,right)+1;
-}
-
-
+    //function for height of tree
+    public static int height(Node root){
+        if(root==null){
+            return 0;
+        }
+        int left=height(root.left);
+        int right=height(root.right);
+        
+        return Math.max(left,right)+1;
+    }
+    
+    
 	public static void main(String[] args) {
 		balancedtree  tree = new balancedtree();
 	     tree.root = new Node(10);
@@ -44,10 +43,10 @@ public static int height(Node root) {
 	     tree.root.left.right = new Node(5);
 	     tree.root.right.left = new Node(7);
 	     
-	     boolean ans=balanced(root);
-	     System.out.println("\\\\ TREE IS BALANCED OR NOT \\\\ :-"+ans);
+	     boolean ans=isBalanced(root);
+	     System.out.println(ans);
 	     
-	
+
 	}
 
 }

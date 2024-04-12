@@ -1,77 +1,73 @@
-package practicetree;
+package trees;
+
+import Arrays.ArrayList;
 
 public class boundarytraversal {
-static Node root;
-static Node left,rght;
 
-public static void leftnodes(Node root) {
-	if(root==null) {
-		return;
+	static Node root;
+	//printing left nodes
+	public static void leftpart(Node root) {
+		if (root == null)
+            return;
+ 
+        if (root.left != null) {
+            System.out.print(root.data + " ");
+            leftpart(root.left);
+        }
+        else if (root.right != null) {
+            System.out.print(root.data + " ");
+            leftpart(root.right);
+        }
+		
 	}
 	
-	if(root.left!=null) {
-		System.out.print(root.data+" ");
-		leftnodes(root.left);
-	}
-	else if(root.right!=null){
-		System.out.print(root.data+" ");
-		leftnodes(root.right);
-	}
-}
-
-
-
-public static void rightnodes(Node root) {
-	if(root==null) {
-		return;
-	}
-	
-	if(root.right!=null){
-		rightnodes(root.right);
-		System.out.print(root.data+" ");
-	}
-	else if(root.left!=null) {
-		rightnodes(root.left);
-		System.out.print(root.data+" ");
-
+	//printing right nodes
+	public static void rightpart(Node root) {
+		if (root == null)
+            return;
+ 
+        if (root.right != null) {
+            rightpart(root.right);
+            System.out.print(root.data + " ");
+        }
+        else if (root.left != null) {
+            rightpart(root.left);
+            System.out.print(root.data + " ");
+        }
+		
 	}
 	
-	
-}
-
-
-
-public static void leafnodes(Node root) {
-	if(root==null) {
-		return;
-	}
-	
-	leafnodes(root.left);
-	
-	if(root.left== null && root.right==null) {
-		System.out.print(root.data+" ");
-	}
-	
-	leafnodes(root.right);
-}
-
-
-/*public static void printBoundary(Node node){
-    if (node == null) {
-        return;
+	//printing leave nodes
+	public static void leavespart(Node node){
+        if (node == null)
+            return;
+ 
+        leavespart(node.left);
+ 
+        if (node.left == null && node.right == null) {
+            System.out.print(node.data + " ");
+        }
+        
+        leavespart(node.right);
     }
-
-   System.out.print(node.data + " ");
-
-    leftnodes(node.left);
-
-    leafnodes(node.left);
-    leafnodes(node.right);
-
-    // Print the right boundary in bottom-up manner
-    rightnodes(node.right);
-}*/
-
+	
+	//printing boundary nodes
+	 public static void printBoundary(Node node){
+	        if (node == null) {
+	            return;
+	        }
+	 
+	       System.out.print(node.data + " ");
+	 
+	        leftpart(node.left);
+	 
+	        leavespart(node.left);
+	        leavespart(node.right);
+	 
+	        // Print the right boundary in bottom-up manner
+	        rightpart(node.right);
+	    }
+	
 	public static void main(String[] args) {
 		boundarytraversal tree=new boundarytraversal();
 		tree.root = new Node(1);
@@ -86,12 +82,7 @@ public static void leafnodes(Node root) {
         tree.root.right.right.right.left=new Node(10);
         tree.root.right.right.right.right=new Node(11);
 
-        
-        leftnodes(root);
-        leafnodes(root);
-        rightnodes(root);
-        
-        //printBoundary(root);
-        }
+        printBoundary(tree.root);
+	}
 
 }

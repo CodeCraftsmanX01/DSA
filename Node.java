@@ -1,4 +1,4 @@
-package practicetree;
+package trees;
 
 class Node {
     int data;
