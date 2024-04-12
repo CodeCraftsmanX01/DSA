@@ -1,92 +1,56 @@
-package recursion;
+package sorting;
+
 import java.util.Arrays;
 
 public class mergeSort {
+	public static void rotate(int arr[],int from ,int to) {
+		int temp=arr[to];
+		for(int i=to; i>from; i--) {
+			arr[i]=arr[i-1];
+		}
+		arr[from]=temp;
+	}
 	
-	static void merge(int arr[], int s, int e) {
-		int mid=(s+e)/2;
+	public static void rearrange(int arr[],int n) {
+		int wrongindex=-1;
 		
-		int len1=mid-s+1;
-		int len2=e-mid;
-		
-		
-		int first[]=new int[len1];
-		int second[]=new int[len2];
-		
-		
-		//copy value from start index  to mid index
-		//k = main array index
-		int k =s;
-		for(int i=0; i<len1; i++) {
-			first[i]=arr[k++];
-		}
-		
-		//copy value from mid+1 index to end index
-		k=mid+1;
-		for(int i=0; i<len2; i++) {
-			second[i]=arr[k++];
-		}
-		
-		
-		//merge two sorted arrays
-		int index1=0;
-		int index2=0;
-		k=s;
-		
-		while(index1<len1 && index2<len2) {
-			if(first[index1]<second[index2]) {
-				arr[k++]=first[index1++];
+		for(int i=0; i<n; i++) {
+			if(wrongindex!=-1) {
+				
+					if((arr[wrongindex]>=0 && arr[i]<0) || (arr[wrongindex]<0 && arr[i]>=0)) {
+						rotate(arr,wrongindex,i);
+						
+						if(i-wrongindex>=2) {
+							wrongindex=wrongindex+2;
+						}
+						else {
+							wrongindex=-1;
+						}
+					}
 			}
+			
 			else {
-				arr[k++]=second[index2++];
+					if((arr[i]<0 && i%2==1) || (arr[i]>=0 && i%2==0)) {
+						wrongindex=i;
+					}
+				
 			}
-			
-			
-			
 		}
-		while(index1<len1) {
-			arr[k++]=first[index1++];
-		}
-		
-		while(index2<len2) {
-			arr[k++]=second[index2++];
-		}
-		
-		
-		
 	}
 	
-	static void mergeShort(int arr[], int s, int e ) {
-		//base case
-		if(s>=e) {
-			return;
-		}
-		
-		
-		int mid=(s+e)/2;
-		//left part sort krna h
-		mergeShort(arr, s, mid);
-	
-		
-		//right part sort krna h
-		mergeShort(arr, mid+1, e);
-		
-		
-		//merge
-		merge(arr, s, e);
-		
+	public static void printArray(int arr[], int n){
+		for (int i = 0; i < n; i++)
+			   System.out.print(arr[i] + " ");
 	}
-	
-	
-	
-public static void main(String []args) {
-	int arr[]= {10, 9, 5, 3, 46, 34, 48, 29, 31, 41, 50};
-	
-	int n=arr.length;
-	
-	mergeShort(arr, 0, n-1);
 
-	
-	System.out.println(Arrays.toString(arr));
+	public static void main(String[] args) {
+		 int arr[] ={-5, -2, 5, 2, 4, 7, 1, 8, 0, -8};
+	     int n=arr.length;
+	     
+	     mergeSort.rearrange(arr,n);
+	     mergeSort.printArray(arr,n);
+	     
+	}
 }
-}
+
+//{-5, 5, -2, 2, -8, 4, 7, 1, 8, 0}

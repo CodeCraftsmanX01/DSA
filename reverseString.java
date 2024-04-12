@@ -1,26 +1,22 @@
-package recursion;
-
+package Strings;
+import java.util.Arrays;
 public class reverseString {
-	
-	static String reverse(String str) {
-		
-		
-		if(str.isEmpty()) {
-			return str;
-		}
-		
-		
-		
-		return reverse(str.substring(1))+str.charAt(0);  
-		
-	}
 
 	public static void main(String[] args) {
-
-		String str="anil recusrion is eazy";
+	char []s={'h','e','l','l','o'};
+	System.out.println(Arrays.toString(s));
+	int n=s.length;
+	int i=0;
+	int j=n-1;
+	while(i<j) {
+		char temp=s[i];
+		s[i]=s[j];
+		s[j]=temp;
 		
-		String ans=reverse(str);
-		System.out.println(ans);
+		i++;
+		j--;
+	}
+System.out.println(Arrays.toString(s));
 	}
 
 }
